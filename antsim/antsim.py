@@ -26,6 +26,7 @@ class Antsim:
         for t in range(timesteps):
             pl.clf()
             # Increment the x and y position of each ant by an amount stepsize*randn()
+            # (i.e. a random step scaled by 'stepsize')
             self.x += stepsize*pl.randn(self.num_ants)
             self.y += stepsize*pl.randn(self.num_ants)
             # Scatter x vs y
