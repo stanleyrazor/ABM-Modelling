@@ -11,8 +11,9 @@ class Antsim:
     def makeants(self, num_ants=50):
         ''' Initialize the ants '''
         self.num_ants = num_ants
-        self.x = np.random.uniform(-1,1,100)
-        self.y = np.random.uniform(-1,1,100)
+        # Randomly distribute the x,y coordinates of the ants
+        self.x = np.random.uniform(-1,1,num_ants)
+        self.y = np.random.uniform(-1,1,num_ants)
 
     def plotants(self, timesteps=150, stepsize=0.03):
         ''' Plot the ants '''
