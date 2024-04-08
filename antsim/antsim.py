@@ -1,3 +1,7 @@
+'''
+This antsim model is a simple ABM that initializes and plots ants walking randomly around a frame of (-1,1),(-1,1).
+'''
+
 import pylab as pl
 import sciris as sc
 
@@ -9,7 +13,7 @@ class Antsim:
     def makeants(self, num_ants=50):
         ''' Initialize the ants '''
         # Initialize the number of ants
-        self.numants = num_ants
+        self.num_ants = num_ants
 
         # Initialize the x and y coordinates: an array of zeros of length num_ants
         self.x = pl.zeros(num_ants)
@@ -22,8 +26,8 @@ class Antsim:
         for t in range(timesteps):
             pl.clf()
             # Increment the x and y position of each ant by an amount stepsize*randn()
-            self.x += stepsize*pl.randn(self.numants)
-            self.y += stepsize*pl.randn(self.numants)
+            self.x += stepsize*pl.randn(self.num_ants)
+            self.y += stepsize*pl.randn(self.num_ants)
             # Scatter x vs y
             pl.scatter(self.x, self.y)
             # Set the x and y limits to (-1,1)
