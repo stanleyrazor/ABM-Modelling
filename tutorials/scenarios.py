@@ -4,22 +4,25 @@ import pylab as pl
 import starsim as ss
 
 data_baseline = np.array([
- 1,  1,  1,  1,  2,  4, 10, 15, 22, 31, 45, 59, 75, 83, 90, 89,
-85, 83, 79, 74, 64, 53, 46, 44, 43, 45, 51, 55, 57, 57, 61, 53,
-51, 48, 40, 34, 29, 27, 22, 18, 16, 13, 11, 12, 12, 12, 13, 13,
-14, 12, 13, 13, 13, 15, 17, 18, 19, 22, 24, 29, 38, 40, 44, 50,
-53, 55, 58, 56, 53, 52, 48, 42, 37, 31, 28, 19, 16, 15, 13, 13,
-12, 14, 13, 11, 13, 11, 13, 14, 15, 15, 13, 14, 16, 21, 21, 28,
-36, 40, 42, 48, 49])
+ 10,  20,  30,  49,  80, 135, 218, 303, 373, 428, 452, 463, 465,
+446, 411, 374, 323, 270, 244, 222, 214, 214, 227, 246, 260, 271,
+265, 257, 254, 243, 232, 214, 191, 161, 137, 110,  98,  83,  67,
+ 62,  51,  47,  45,  42,  47,  49,  48,  48,  52,  57,  67,  77,
+ 89,  96, 117, 129, 148, 176, 191, 209, 233, 248, 252, 253, 253,
+245, 234, 214, 199, 183, 159, 145, 129, 118, 109,  97,  94,  94,
+ 83,  82,  79,  75,  82,  91,  99, 104, 104, 113, 129, 146, 153,
+163, 175, 193, 197, 208, 208, 213, 215, 203, 204])
 
 data_vaccine = np.array([
- 1,  1,  1,  1,  2,  4, 10, 15, 22, 31, 45, 48, 55, 58, 56, 53,
-49, 46, 38, 29, 24, 20, 17, 15, 16, 15, 20, 20, 21, 24, 26, 21,
-23, 23, 24, 22, 18, 16, 15, 14, 12,  8,  6,  6,  5,  6,  6,  4,
- 4,  3,  3,  3,  2,  4,  5,  7,  9, 10, 12, 14, 17, 19, 18, 20,
-22, 23, 25, 24, 23, 23, 19, 19, 19, 15, 14, 11, 11, 10,  7,  6,
- 6,  5,  3,  3,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
- 0,  0,  0,  0,  0])
+ 10,  20,  30,  49,  80,  92, 102, 110, 119, 118, 124, 118, 115,
+96,  79,  72,  65,  61,  51,  37,  36,  28,  21,  22,  15,  15,
+11,  10,  11,   9,  10,   6,   6,   6,   7,   5,   7,   6,   6,
+ 7,   6,   7,   7,   7,   9,   8,   6,   7,  10,   8,   7,   9,
+ 9,   7,   8,   8,  11,  12,  11,  10,   8,  10,  14,  18,  21,
+20,  22,  23,  25,  27,  25,  24,  28,  28,  28,  27,  27,  27,
+27,  28,  25,  25,  19,  20,  21,  21,  24,  26,  28,  33,  43,
+54,  65,  82,  92, 115, 133, 170, 199, 222, 250])
+
 
 # EXERCISE: plot data
 # pl.figure()
@@ -30,7 +33,7 @@ data_vaccine = np.array([
 
 
 class Vaccine(ss.Intervention):
-    def __init__(self, ti=5, p=0.5, boost=2.0):
+    def __init__(self, ti=7, p=0.5, boost=2.0):
         super().__init__()
         self.ti = ti
         self.p = p
@@ -46,9 +49,9 @@ class Vaccine(ss.Intervention):
             sis.immunity[vacc_ids] += self.boost
 
 
-def make_run_sim(beta=0.05, waning=0.05, seed=1, vaccine=False, p=0.5, boost=2.0):
+def make_run_sim(beta=0.05, waning=0.05, seed=1, vaccine=False, ti=10, p=0.5, boost=2.0):
     pars = dict(
-        n_agents = 100,
+        n_agents = 500,
         start = 0,
         end = 100,
         dt = 1.0,
@@ -63,7 +66,7 @@ def make_run_sim(beta=0.05, waning=0.05, seed=1, vaccine=False, p=0.5, boost=2.0
     
     # Define "baseline" and "intervention" sims without and with the vaccine
     if vaccine:
-        vx = Vaccine(p=p, boost=boost)
+        vx = Vaccine(ti=ti, p=p, boost=boost)
         sim = ss.Sim(pars, interventions=vx)
     else:
         sim = ss.Sim(pars)
@@ -86,10 +89,10 @@ def plot(results, label=''):
 
 # Make, run, and plot the simulation
 sc.options(dpi=200)
-pars = dict(beta=0.08, waning=0.03, seed=7)
+pars = dict(beta=0.08, waning=0.03, seed=15)
 res1 = make_run_sim(**pars)
 plot(res1, 'Baseline')
-res2 = make_run_sim(**pars, vaccine=True, p=0.5, boost=10)
+res2 = make_run_sim(**pars, vaccine=True, ti=4, p=0.8, boost=10)
 plot(res2, 'Vaccine')
 
 # Save data
