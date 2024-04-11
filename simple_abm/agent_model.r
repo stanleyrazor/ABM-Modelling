@@ -100,7 +100,7 @@ Sim <- function() {
   }
   
   self$run <- function(self) {
-    for (t in self$x[-length(self$x)]) {
+    for (t in self$x) {
       self <- self$check_infections(self)
       self <- self$check_recoveries(self)
       
@@ -119,7 +119,7 @@ Sim <- function() {
     plot(self$time, self$S, type = "l", col = "blue", lwd = 2, xlab = "Time", ylab = "Number of people", main = "SIR Model")
     lines(self$time, self$I, type = "l", col = "red", lwd = 2)
     lines(self$time, self$R, type = "l", col = "green", lwd = 2)
-    legend("topleft", legend = c("Susceptible", "Infectious", "Recovered"))
+    legend("topleft", legend = c("Susceptible", "Infectious", "Recovered"), fill = c("blue", "red", "green"))
   }
   
   return(self)
