@@ -72,30 +72,28 @@ Sim <- R6Class("Sim",
       S = 0
       I = 0
       R = 0
-      for (i in 1:N) {
-        S = S + self$people[[i]]$S
-        I = I + self$people[[i]]$I
-        R = R + self$people[[i]]$R
+      for (person in self$people) {
+        S = S + person$S
+        I = I + person$I
+        R = R + person$R
       }
       return(list(S = S, I = I, R = R))
     },
     
     check_infections = function() {
-      for (i in 1:N) {
+      for (person1 in self$people) {
         contacts <- sample(1:N, size = floor(N * contact_rate))
         for (contact in contacts) {
-          person1 <- self$people[[i]]
           person2 <- self$people[[contact]]
-          self$people[[i]]$check_infection(person2)
+          person1$check_infection(person2)
         }
       }
       return(self)
     },
     
     check_recoveries = function() {
-      for (i in 1:N) {
-        person = self$people[[i]]
-        self$people[[i]]$check_recovery()
+      for (person in self$people) {
+        person$check_recovery()
       }
       return(self)
     },
