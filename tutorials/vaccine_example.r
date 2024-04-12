@@ -36,16 +36,6 @@ make_run_sim <- function(beta=0.05, waning=0.05, seed=1, vaccine=FALSE, ti=10, p
     return(results)
 }
 
-
-res_plot <- function(results, label='') {
-    lines(results$time, results$n_infected, type='l', main='Number of people infected', xlab='Time', ylab='Number of Infected')
-    legend('topright', legend=label, lwd=2)
-}
-
-# res_plot(res1, 'Baseline')
-# res_plot(res2, 'Vaccine')
-    
-
 # Make, run, and plot the simulation
 res1 <- make_run_sim(beta=0.08, waning=0.03, seed=15)
 res2 <- make_run_sim(beta=0.08, waning=0.03, seed=15, vaccine=TRUE, ti=4, p=0.8, boost=10)
