@@ -6,7 +6,7 @@ library(ggplot2)
 
 ss <- import("starsim")
 
-# EXERCISE 5 of 5: find parameters that match the data
+# EXERCISE: find parameters that match the data
 beta <- 0.35 # NB: best-fitting beta is not the same as in simple_abm!
 dur_inf <- 10 # However, dur_inf is
 seed <- 1
