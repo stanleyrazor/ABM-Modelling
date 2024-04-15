@@ -4,9 +4,16 @@ rm(list=ls())
 library(reticulate)
 library(ggplot2)
 
+#============================to call the starsim you need to create the python environment using the following
+
+# reticulate::repl_python()  # This is the python environment
+# !pip install starsim # the starsim ABM
+# exit # then exit the python environment
+
 ss <- import("starsim")
 
 # EXERCISE: find parameters that match the data
+
 beta <- 0.35 # NB: best-fitting beta is not the same as in simple_abm!
 dur_inf <- 10 # However, dur_inf is
 seed <- 1
@@ -59,7 +66,8 @@ plot_results <- function(sim) {
 
     res_plot <- ggplot(df, aes(x = time)) +
     geom_point(aes(y = Data, color = 'Data')) +
-    geom_line(aes(y = Model, color = 'Model')) +
+    geom_line(aes(y = Model, color = 'Model')) + theme_bw()+ scale_x_continuous(breaks = seq(0, 20, by = 2))+
+      scale_y_continuous(breaks = seq(0, 150, by = 10)) +
     labs(title = 'Number of people infected', x = 'Time', y = 'Number of Infected') +
     scale_color_manual(values = c('Data' = 'black', 'Model' = 'red'))
 
