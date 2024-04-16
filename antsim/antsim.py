@@ -44,3 +44,4 @@ sim = Antsim()
 sim.makeants(num_ants=100)
 # Plot the ants
 sim.plotants()
+

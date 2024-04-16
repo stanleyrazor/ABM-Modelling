@@ -6,14 +6,15 @@ import numpy as np
 import pylab as pl
 
 # Set parameters
-beta = 2.5 # Infection rate
-gamma = 1.0 # Recovery rate
-contact_rate = 0.5 # Fraction of population each person is connected to
+beta = 10 # Infection rate
+gamma = .9 # Recovery rate
+contact_rate = 0.08 # Fraction of population each person is connected to
 I0 = 5 # Number of people initially infected
-N = 100 # Total population size
+N = 1000 # Total population size
 maxtime = 10 # How long to simulate for
-npts = 100 # Number of time points during the simulation
+npts = 150 # Number of time points during the simulation
 dt = maxtime/npts # Timestep length
+
 
 
 class Person:
@@ -30,7 +31,7 @@ class Person:
 
     def recover(self):
         self.I = False
-        self.R = True
+        #self.R = True
 
     def check_infection(self, other):
         if self.S: # A person must be susceptible to be infected
@@ -79,7 +80,7 @@ class Sim:
             person.check_recovery()
     
     def run(self):
-        for t in self.x[:-1]:
+        for t in self.x[:-1]: # we use -1 here in order for us to use t+1 below, just an indexing issue
             # Update the agents
             self.check_infections() # Check which infectious occur
             self.check_recoveries() # Check which recoveries occur
@@ -99,10 +100,12 @@ class Sim:
         pl.legend()
         pl.xlabel('Time')
         pl.ylabel('Number of people')
-        pl.show()
+        # pl.show()
 
 
-if __name__ == '__main__':
-    sim = Sim()
-    sim.run()
-    sim.plot()
+sim = Sim()
+sim.run()
+sim.plot()
+    
+    
+    
